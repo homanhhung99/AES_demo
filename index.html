@@ -1,82 +1,32 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <title>AES client/server test</title>
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/normalize/3.0.3/normalize.min.css">
-    <style>
-        body    { font-size: 80%; padding: 1em; }
-        form    { margin-top: 2em; }
-        label   { display: inline-block; width: 6em; }
-        input   { width: 36em; }
-        form ul { list-style: none; padding: 0; }
-        form li { margin: 0.5em 1em; }
-        code    { display: inline-block; font-size: 80%; margin-left: 2em; }
-    </style>
-    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous"> -->
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="index.css">
-    <script src="/js/aes.js"></script>
-    <script src="/js/aes-ctr.js"></script>
-    <script>
-        $(document).ready(function() {
-            var plaintext = Aes.Ctr.decrypt($('#ciphertext-server').html(), $('#password').val(), 256);
-            $('output[name=plaintext-local]').html(plaintext);
-
-            var ciphertext = Aes.Ctr.encrypt($('#plaintext').val(), $('#password').val(), 256);
-            $('input[name=ciphertext]').val(ciphertext);
-        });
-    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js" integrity="sha512-nOQuvD9nKirvxDdvQ9OMqe2dgapbPB7vYAMrzJihw5m+aNcf0dX53m6YxM4LgA9u8e9eg9QX+/+mPu8kCNpV2A==" crossorigin="anonymous"></script>
 </head>
-
 <body>
-    <h1 style="text-align: center;
-    font-size: 30px;
-    font-family: tahoma;
-    background-color: springgreen;
-    padding: 10px;" >Kiểm tra khả năng tương tác máy khách / máy chủ JavaScript AES</h1>
+    <form id="encrypt-form">
+        <h2>Mã hóa</h2>
+        <input type="file" name="upload"><br>
+        <input type="text" name="key" placeholder="Key"><br>
+        <button>Thực hiện</button><hr>
+        <textarea name="result" cols="30" rows="10" placeholder="Kết quả"></textarea><br>
+        <a id="encrypt-file-link" href="#">Tải file này</a>
 
-    <p>Các tệp JavaScript AES giống nhau được sử dụng cả phía máy khách và phía máy chủ.</p>
-    <p>Phía khách hàng mà họ được truy cập bởi</p>
-    <code>&lt;script src="/js/aes.js"&gt;&lt;/script&gt;<br>&lt;script src="/js/aes-ctr.js"&gt;&lt;/script&gt;</code>
-    <p>Phía máy chủ mà chúng được truy cập bởi</p>
-    <code>const Aes = require('./public/js/aes.js');<br>Aes.Ctr   = require('./public/js/aes-ctr.js');</code>
-
-    <form method="post">
-        <fieldset><legend style="    color: steelblue;
-            font-size: 30px;
-            text-align: center;">Giải mã mã hóa</legend>
-            <div style="    color: red;
-            background: yellow;
-            display: inline-block;
-            margin: auto;" class="box1">
-                <ul>
-                    <li>
-                        <label for="plaintext">Văn bản thô</label>
-                        <input name="plaintext" id="plaintext" value="Homanhhung">
-                    </li>
-                    <li>
-                        <label for="password">Mật khẩu</label>
-                        <input name="password" id="password" value="lock Ngay">
-                    </li>
-                </ul>
-            </div>
-            <div class="container" style="display: flex;">
-                <div class="boxs" style="padding-left: 110px;">
-                    <h2>Mã hóa trên máy chủ, giải mã trên máy khách</h2>
-                    <p>Văn bản mật mã (được mã hóa trên máy chủ): <span style="color: red;" id="ciphertext-server">{{ciphertext}}</span></p>
-                    <p>Văn bản thuần túy (được giải mã trên máy khách): <output name="plaintext-local"></output></p>
-        
-                </div>
-                <div class="boxs" style="padding-left: 110px;">
-                    <h2>Mã hóa trên máy khách, giải mã trên máy chủ</h2>
-                    <p>Văn bản mật mã (được mã hóa trên máy khách):<input style="color: blue;" name="ciphertext" readonly style="width:10em"></p>
-                    <p>Văn bản thuần túy (được giải mã trên máy chủ):<output name="plaintext-from-server">{{plaintext}}</output></p>    
-                </div>
-            </div>
-            <button type="submit" style="background-color: red;padding:10px 50px;color: white;font-weight: bold;">Submit</button>
-        </fieldset>
+    </form>
+    
+    <form id="decrypt-form">
+        <h2>Giải mã</h2>
+        <input type="file" name="upload"><br>
+        <input type="text" name="key" placeholder="Key"><br>
+        <button>Thực hiện</button><hr>
+        <textarea name="result" cols="30" rows="10" placeholder="Kết quả"></textarea><br>
+        <a id="decrypt-file-link" href="#">Tải file này</a>
     </form>
 
+
+    <script src="./app.js"></script>
 </body>
 </html>
